@@ -1,5 +1,7 @@
 # DynamoDB CDK Migrations
 
+![main](./images/recodify.png)
+
 CDK to DynamoDB-local bridge. Deploy your CDK defined tables locally, with zero drift.
 
 > ⚠️ **Early MVP/POC**: This project is in very early development and serves as a proof of concept. APIs may change significantly and features are limited. Use at your own risk in production environments.
