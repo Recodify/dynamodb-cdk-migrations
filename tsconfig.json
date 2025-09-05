@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "strict": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
+    "noEmit": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src", "test", "infra/utils/string-utils.ts"]
+}

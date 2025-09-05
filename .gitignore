@@ -1,0 +1,39 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+dist.zip
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Env/config
+.env
+.env.local
+.env.*.local
+
+# System cruft
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# AWS SAM / ASK / Deploy caches
+.aws-sam/
+.ask/
+cdk.out/
+
+# Claude Code
+.claude/
+
