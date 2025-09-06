@@ -1,5 +1,5 @@
 {
-  "name": "dynamodb-migrations-cdk",
+  "name": "dynamodb-local-cdk-migrations",
   "version": "0.1.0",
   "main": "dist/index.js",
   "publishConfig": {

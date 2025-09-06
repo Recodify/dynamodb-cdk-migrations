@@ -1,4 +1,4 @@
-# DynamoDB CDK Migrations
+# DynamoDb-Local CDK Migrations
 
 ![main](./images/recodify.png)
 
@@ -101,7 +101,7 @@ async function deployToLocal() {
   const stack = new UserManagementStack(app, 'UserManagementStack');
 
   // Initialize DynamoDB client for local development
-  const client = new DynamoDBClient({ 
+  const client = new DynamoDBClient({
     endpoint: 'http://localhost:8000',
     region: 'local',
     credentials: {
