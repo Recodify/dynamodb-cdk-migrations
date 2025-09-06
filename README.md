@@ -34,7 +34,7 @@ npm install
 ### Basic Usage
 
 ```typescript
-import { createTableInputFromTemplate } from './src/cdk/cdk-utils';
+import { createTableInputFromTemplate } from './src/index';
 import { CreateTableCommand } from '@aws-sdk/client-dynamodb';
 
 // Create your CDK stack and table definition
@@ -52,23 +52,104 @@ const command = new CreateTableCommand(tableInput);
 await client.send(command);
 ```
 
+### Real-World Usage with CDK App
+
+```typescript
+import * as cdk from 'aws-cdk-lib';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import { DynamoDBClient, CreateTableCommand } from '@aws-sdk/client-dynamodb';
+import { createTableInputFromTemplate } from './src/index';
+
+// Define your CDK stack class
+class UserManagementStack extends cdk.Stack {
+  public readonly userTable: dynamodb.Table;
+  public readonly sessionTable: dynamodb.Table;
+
+  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    // Users table with GSI
+    this.userTable = new dynamodb.Table(this, 'Users', {
+      partitionKey: { name: 'userId', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'createdAt', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      stream: dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,
+    });
+
+    // Add GSI for email lookup
+    this.userTable.addGlobalSecondaryIndex({
+      indexName: 'EmailIndex',
+      partitionKey: { name: 'email', type: dynamodb.AttributeType.STRING },
+      projectionType: dynamodb.ProjectionType.ALL,
+    });
+
+    // Session table with TTL
+    this.sessionTable = new dynamodb.Table(this, 'Sessions', {
+      partitionKey: { name: 'sessionId', type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      timeToLiveAttribute: 'expiresAt',
+    });
+  }
+}
+
+// Initialize and deploy to local DynamoDB
+async function deployToLocal() {
+  // Create CDK app and stack
+  const app = new cdk.App();
+  const stack = new UserManagementStack(app, 'UserManagementStack');
+
+  // Initialize DynamoDB client for local development
+  const client = new DynamoDBClient({ 
+    endpoint: 'http://localhost:8000',
+    region: 'local',
+    credentials: {
+      accessKeyId: 'fake',
+      secretAccessKey: 'fake'
+    }
+  });
+
+  try {
+    // Deploy user table
+    const userTableInput = createTableInputFromTemplate(stack, stack.userTable);
+    await client.send(new CreateTableCommand(userTableInput));
+    console.log('✅ Users table created successfully');
+
+    // Deploy session table
+    const sessionTableInput = createTableInputFromTemplate(stack, stack.sessionTable);
+    await client.send(new CreateTableCommand(sessionTableInput));
+    console.log('✅ Sessions table created successfully');
+
+    console.log('🚀 Local DynamoDB tables deployed successfully!');
+  } catch (error) {
+    console.error('❌ Failed to deploy tables:', error);
+  }
+}
+
+// Run deployment
+deployToLocal();
+```
+
 ### Project Structure
 
 ```
 src/
-├── cdk/
-│   └── cdk-utils.ts          # Core utility functions
+└── index.ts                  # Core utility functions
 test/
-├── helpers/
-│   └── create-Connection.ts   # DynamoDB client helpers
 ├── cdk/
-│   ├── stacks/
-│   │   └── testStack.ts       # Test CDK stacks
-│   └── resources/
-│       └── testTableDefinition.ts  # Test table definitions
+│   ├── resources/
+│   │   └── testTabeDefinition.ts  # Test table definitions
+│   └── stacks/
+│       └── testStack.ts       # Test CDK stacks
+├── dynamodb/
+│   └── create-Connection.ts   # DynamoDB client helpers
 └── integration/
     └── createTable.test.ts    # Integration tests
+images/
+└── recodify.png              # Project logo
 package.json
+tsconfig.json
 ```
 
 ## Testing

@@ -1,9 +1,9 @@
 import 'mocha';
 import { expect } from 'chai';
-import { createTableInputFromTemplate } from '../../src/cdk/cdk-utils';
+import { createTableInputFromTemplate } from '../../src';
 import { createDynamoDBTable } from '../cdk/resources/testTabeDefinition';
 import { CreateTableCommand } from '@aws-sdk/client-dynamodb';
-import { CreateDynamoDbClient } from '../helpers/create-Connection';
+import { CreateDynamoDbClient } from '../dynamodb/create-Connection';
 import { createEmptyCdkStack, createTestStack } from '../cdk/stacks/testStack';
 import * as randomstring from 'randomstring';
 
