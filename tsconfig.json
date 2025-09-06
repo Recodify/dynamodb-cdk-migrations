@@ -5,10 +5,13 @@
     "strict": true,
     "skipLibCheck": true,
     "moduleResolution": "node",
-    "ignoreDeprecations": "6.0",
-    "noEmit": true,
+    "outDir": "./dist",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src", "test", "infra/utils/string-utils.ts"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "test"]
 }

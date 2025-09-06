@@ -1,11 +1,30 @@
 {
   "name": "dynamodb-migrations-cdk",
   "version": "0.1.0",
-  "main": "index.ts",
+  "main": "dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "package.json"
+  ],
   "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
     "test": "mocha --require ts-node/register --recursive 'test/integration/**/*.test.ts' --timeout 10000",
     "test:integration": "mocha --require ts-node/register --recursive 'test/integration/**/*.test.ts' --timeout 10000"
   },
+  "keywords": [
+    "dynamodb",
+    "cdk",
+    "aws",
+    "migration",
+    "local",
+    "testing"
+  ],
   "author": "Recodify",
   "license": "ISC",
   "description": "CDK to Dynamodb-local bridge. Deploy your cdk defined tables locally, with zero drift",
