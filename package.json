@@ -1,21 +1,16 @@
 {
   "name": "dynamodb-local-cdk-migrations",
   "version": "0.1.0",
-  "main": "dist/index.js",
-  "publishConfig": {
-    "access": "public"
+  "author": "Recodify",
+  "license": "MIT",
+  "description": "CDK to Dynamodb-local bridge. Deploy your cdk defined tables locally, with zero drift",
+  "homepage": "https://github.com/Recodify/dynamodb-cdk-migrations#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Recodify/dynamodb-cdk-migrations.git"
   },
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist/**/*",
-    "README.md",
-    "package.json"
-  ],
-  "scripts": {
-    "build": "tsc",
-    "prepublishOnly": "npm run build",
-    "test": "mocha --require ts-node/register --recursive 'test/integration/**/*.test.ts' --timeout 10000",
-    "test:integration": "mocha --require ts-node/register --recursive 'test/integration/**/*.test.ts' --timeout 10000"
+  "bugs": {
+    "url": "https://github.com/Recodify/dynamodb-cdk-migrations/issues"
   },
   "keywords": [
     "dynamodb",
@@ -25,9 +20,23 @@
     "local",
     "testing"
   ],
-  "author": "Recodify",
-  "license": "ISC",
-  "description": "CDK to Dynamodb-local bridge. Deploy your cdk defined tables locally, with zero drift",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "mocha --require ts-node/register --recursive 'test/integration/**/*.test.ts' --timeout 10000",
+    "test:integration": "mocha --require ts-node/register --recursive 'test/integration/**/*.test.ts' --timeout 10000"
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.632.0",
     "aws-cdk": "^2.1027.0",

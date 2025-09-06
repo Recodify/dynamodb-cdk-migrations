@@ -1,8 +1,13 @@
 # DynamoDb-Local CDK Migrations
 
+[![npm version](https://badge.fury.io/js/dynamodb-local-cdk-migrations.svg)](https://www.npmjs.com/package/dynamodb-local-cdk-migrations)
+[![GitHub](https://img.shields.io/github/license/Recodify/dynamodb-cdk-migrations)](https://github.com/Recodify/dynamodb-cdk-migrations)
+
 ![main](./images/recodify.png)
 
 CDK to DynamoDB-local bridge. Deploy your CDK defined tables locally, with zero drift.
+
+📦 **[Available on npm](https://www.npmjs.com/package/dynamodb-local-cdk-migrations)** | 🔗 **[GitHub Repository](https://github.com/Recodify/dynamodb-cdk-migrations)**
 
 > ⚠️ **Early MVP/POC**: This project is in very early development and serves as a proof of concept. APIs may change significantly and features are limited. Use at your own risk in production environments.
 
